@@ -1121,6 +1121,52 @@ select {
   justify-content: center;
   margin-top: 20px;
 }
-.brand { display: inline-flex; align-items: center; gap: 12px; }
-.brand img { width: 40px !important; height: 40px !important; }
-.brand .brand-name { color: inherit; font-size: 26px; font-weight: 750; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand img {
+  width: 40px !important;
+  height: 40px !important;
+}
+.brand .brand-name {
+  color: inherit;
+  font-size: 26px;
+  font-weight: 750;
+}
+
+/* Public playback: a clear first action without starting audio unexpectedly. */
+.watch-card .player {
+  position: relative;
+}
+.watch-card .video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: #672074;
+  color: #fff;
+  box-shadow: 0 4px 24px #0008;
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  min-height: 60px;
+}
+.watch-card .video-play-overlay:hover {
+  background: #862995;
+}
+.watch-card .video-play-overlay:focus-visible {
+  outline: 3px solid #7ba5d9;
+  outline-offset: 5px;
+}
+.watch-card .video-play-overlay svg {
+  width: 28px;
+  height: 28px;
+}
