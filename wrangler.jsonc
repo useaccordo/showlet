@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "showlet",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-10",
+  "workers_dev": false,
+  "preview_urls": false,
+  "ai": { "binding": "AI" },
+  "routes": [{ "pattern": "showlet.example.com", "custom_domain": true }],
+  "triggers": { "crons": ["17 4 * * *"] },
+  "assets": { "directory": "public", "binding": "ASSETS", "run_worker_first": true },
+  "vars": {
+    "ORIGIN": "https://showlet.example.com",
+    "ACCESS_ISSUER": "https://your-team.cloudflareaccess.com",
+    "ACCESS_AUD": "",
+    "ADMIN_EMAILS": "",
+    "MAX_DURATION": "900",
+    "MAX_BYTES": "536870912",
+    "R2_BUCKET": "showlet-media",
+    "ACCOUNT_ID": ""
+  },
+  "d1_databases": [{ "binding": "DB", "database_name": "showlet", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "showlet-media" }]
+}

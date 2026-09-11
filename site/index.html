@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Showlet is a small, self-hosted screen recorder for Cloudflare. Record a walkthrough, add a passcode, and share a little clarity. MIT licensed, as is."
+    />
+    <meta name="theme-color" content="#152257" />
+    <title>Showlet — Show a little. Explain a lot.</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="shell">
+      <a class="logo" href="./" aria-label="Showlet home"
+        ><img src="icon.svg" width="44" height="44" alt="" /><span
+          >showlet<span class="dot">.</span></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#inside">What's inside</a
+        ><a href="https://github.com/useaccordo/showlet">GitHub ↗</a
+        ><a
+          class="button small"
+          href="https://github.com/useaccordo/showlet#install"
+          >Get started</a
+        >
+      </nav>
+    </header>
+    <main>
+      <div class="shell hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="status-dot"></span> SMALL TOOL. OPEN SOURCE. YOURS TO
+            RUN.
+          </p>
+          <h1>Show a little.<br /><span>Explain a lot.</span></h1>
+          <p class="lead">For the things that are easier to show than type.</p>
+          <p class="intro">
+            Record a quick walkthrough, give it a useful title, and share a
+            link. Showlet keeps the recording tools small and the hosting in
+            your hands.
+          </p>
+          <div class="actions">
+            <a
+              class="button"
+              href="https://github.com/useaccordo/showlet#install"
+              >Make it yours <span aria-hidden="true">↗</span></a
+            ><a
+              class="button secondary"
+              href="https://github.com/useaccordo/showlet"
+              >Explore the code</a
+            >
+          </div>
+          <p class="micro">
+            MIT licensed · Cloudflare Workers + R2 + D1 · v0.1
+          </p>
+        </div>
+        <div class="hero-art">
+          <div class="art-orbit"></div>
+          <img
+            src="illustration.svg"
+            alt="A purple screen recorder with a play button and an orange progress marker"
+            width="480"
+            height="360"
+          />
+          <div class="little-note">
+            <span class="note-dot"></span>A little clarity, ready to share.
+          </div>
+        </div>
+      </div>
+      <div class="ribbon">
+        <div class="shell">
+          <span>Your screen.</span><span>Your storage.</span
+          ><span>Your little corner of the internet.</span>
+        </div>
+      </div>
+      <section id="inside" class="shell features">
+        <p class="eyebrow">ENOUGH TO BE USEFUL</p>
+        <h2>A helpful little toolkit.</h2>
+        <p class="section-intro">
+          The essentials for small teams, without building your day around a
+          video platform.
+        </p>
+        <div class="feature-grid">
+          <article>
+            <div class="feature-icon orange" aria-hidden="true">01</div>
+            <h3>Record, then review.</h3>
+            <p>
+              Screen and microphone, a countdown you can hear, pause and resume.
+              Review locally before publishing.
+            </p>
+          </article>
+          <article>
+            <div class="feature-icon pink" aria-hidden="true">02</div>
+            <h3>Send a little context.</h3>
+            <p>
+              Shareable links, optional passcodes, and a message that includes
+              what your recipient needs to watch.
+            </p>
+          </article>
+          <article>
+            <div class="feature-icon blue" aria-hidden="true">03</div>
+            <h3>Find the right words.</h3>
+            <p>
+              Optional AI transcripts and title suggestions. Review and edit
+              them before sharing; AI can make mistakes.
+            </p>
+          </article>
+          <article>
+            <div class="feature-icon purple" aria-hidden="true">04</div>
+            <h3>Keep your team in view.</h3>
+            <p>
+              A library, owner controls, team roles, simple playback trends, and
+              a first-login guide. Light or dark, as you like.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="shell getting-started">
+        <div>
+          <p class="eyebrow">BRING YOUR OWN CLOUDFLARE</p>
+          <h2>A small app.<br />A real deployment.</h2>
+          <p>
+            You'll configure a Worker, a private R2 bucket, D1, a custom
+            hostname, and Cloudflare Access for your team. AI is optional to
+            use.
+          </p>
+          <p>
+            You pay your providers directly. Check their current prices and
+            limits; we don't promise zero-cost hosting.
+          </p>
+          <a
+            class="text-link"
+            href="https://github.com/useaccordo/showlet#install"
+            >Follow the installation guide →</a
+          >
+        </div>
+        <div class="terminal" aria-label="Example installation commands">
+          <div class="terminal-top">
+            <i></i><i></i><i></i><span>start here</span>
+          </div>
+          <pre><code>git clone https://github.com/useaccordo/showlet.git
+cd showlet
+npm ci
+
+# Then follow the setup guide.
+npm run configure</code></pre>
+          <p>Not a hosted service. No account with us required.</p>
+        </div>
+      </section>
+      <section class="shell community">
+        <div class="community-mark">
+          <img src="icon.svg" width="72" height="72" alt="" />
+        </div>
+        <div>
+          <p class="eyebrow">A SMALL WAY TO GIVE BACK</p>
+          <h2>Built for our team.<br />Shared with yours.</h2>
+          <p>
+            Showlet grew out of a tool we built at
+            <a href="https://useaccordo.com">Accordo</a>. We're not in the
+            screen-sharing business, so we're sharing the useful bits with the
+            community.
+          </p>
+          <p>
+            We may bring over reusable improvements from our own version.
+            There's no promised maintenance schedule, support service, or
+            response time.
+          </p>
+        </div>
+      </section>
+      <section class="shell fine-print">
+        <h2>Good to know before you run it.</h2>
+        <p>
+          Showlet is an early community release, provided
+          <strong>as is, without warranty or any support commitment</strong>.
+          You are responsible for security review, configuration, backups,
+          retention, costs, and operating your instance. No independent security
+          audit has been performed. Screen/audio support varies by browser and
+          device.
+        </p>
+        <div class="footer-links">
+          <a href="https://github.com/useaccordo/showlet/blob/main/LICENSE"
+            >MIT license</a
+          ><a href="https://github.com/useaccordo/showlet/blob/main/SECURITY.md"
+            >Security</a
+          ><a
+            href="https://github.com/useaccordo/showlet/blob/main/CONTRIBUTING.md"
+            >Contributing</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="shell site-footer">
+      <span
+        >showlet.
+        <span class="muted">A little clarity goes a long way.</span></span
+      ><span
+        >A community project from
+        <a href="https://useaccordo.com">Accordo</a>.</span
+      >
+    </footer>
+  </body>
+</html>

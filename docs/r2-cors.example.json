@@ -1,0 +1,13 @@
+{
+  "rules": [
+    {
+      "allowed": {
+        "origins": ["https://clips.example.com"],
+        "methods": ["PUT"],
+        "headers": ["content-type"]
+      },
+      "exposeHeaders": ["ETag"],
+      "maxAgeSeconds": 3600
+    }
+  ]
+}

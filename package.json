@@ -1,0 +1,30 @@
+{
+  "name": "showlet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "wrangler deploy",
+    "db:local": "wrangler d1 migrations apply DB --local",
+    "format": "prettier --write src tests public package.json tsconfig.json wrangler.jsonc",
+    "configure": "node scripts/configure.mjs"
+  },
+  "dependencies": {
+    "aws4fetch": "^1.0.20",
+    "fix-webm-duration": "^1.0.6",
+    "jose": "^6.1.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.2",
+    "vite": "^7.3.6",
+    "vitest": "^4.1.11",
+    "wrangler": "^4.0.0"
+  },
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "A small self-hosted screen recorder and video-sharing app for Cloudflare."
+}

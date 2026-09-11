@@ -1,0 +1,4 @@
+# Local development placeholders only. Never commit filled values.
+R2_ACCESS_KEY_ID=
+R2_SECRET_ACCESS_KEY=
+PASSCODE_ENCRYPTION_KEY=

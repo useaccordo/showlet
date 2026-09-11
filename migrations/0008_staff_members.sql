@@ -1,0 +1,1 @@
+-- Reserved migration number. Deployment-specific staff seeds are intentionally excluded.
