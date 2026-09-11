@@ -2,6 +2,9 @@ import { createInterface } from "node:readline/promises";
 import { readFileSync, writeFileSync } from "node:fs";
 const ask = createInterface({ input: process.stdin, output: process.stdout });
 try {
+  console.log(
+    "Before continuing, complete docs/LOGIN.md: create one Access application, enable its login method, and allow your team emails. This script only saves Worker settings.",
+  );
   const config = JSON.parse(readFileSync("wrangler.jsonc", "utf8"));
   const account = (await ask.question("Cloudflare account ID: ")).trim();
   const host = (

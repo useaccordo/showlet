@@ -39,7 +39,9 @@ npx wrangler d1 create showlet
 npx wrangler r2 bucket create showlet-media
 ```
 
-Keep the database ID returned by D1. Create a Cloudflare Access self-hosted application for your chosen hostname and the three protected path prefixes listed above. Add an **Allow → Emails** rule containing only your intended team members. Use email OTP or your preferred identity provider. Copy the application's AUD and your team's Access issuer URL. Allow your initial administrator's email in that policy.
+Keep the database ID returned by D1. **Set up team login before running the configuration command:** follow the [Cloudflare Access login guide](docs/LOGIN.md). It covers creating your Zero Trust organization, explicitly enabling **One-time PIN**, selecting it for the application, protecting the team routes, allowing email addresses, and finding the issuer and AUD. `wrangler login` above only authenticates your deployment CLI; it does not set up login for Showlet users.
+
+Use **one Access application** for `/record`, `/library`, `/api` and their descendants, with an email allowlist that includes your initial administrator. Keep the landing page and recipient video routes outside that application. `ADMIN_EMAILS` grants an initial Showlet role; it does not add anyone to Cloudflare's allowlist.
 
 ```sh
 npm run configure

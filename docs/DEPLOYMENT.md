@@ -1,5 +1,7 @@
 # Deployment and operation
 
+Complete the [team login setup](LOGIN.md) before configuring the Worker. The configuration script does not create your Zero Trust organization, enable email OTP, or create an Access application/policy.
+
 ## Configuration map
 
 | Setting                                    | Meaning                                                                 |
