@@ -119,7 +119,7 @@ function put(url, data, onProgress) {
     xhr.onload = () =>
       xhr.status >= 200 && xhr.status < 300
         ? resolve(xhr.getResponseHeader("ETag"))
-        : reject(Error("Upload failed. Please retry."));
+        : reject(Error(`Upload failed (HTTP ${xhr.status}). Please retry.`));
     xhr.send(data);
   });
 }
@@ -157,6 +157,17 @@ async function upload() {
   ui.progress.hidden = false;
   ui.progress.value = 0;
   ui.status.textContent = "Uploading your recording…";
+  let publishError = $("#publish-error");
+  if (!publishError) {
+    publishError = document.createElement("p");
+    publishError.id = "publish-error";
+    publishError.className = "sharing-warning";
+    publishError.setAttribute("role", "alert");
+    publishError.tabIndex = -1;
+    publish.parentElement.before(publishError);
+  }
+  publishError.hidden = true;
+  let stage = "Starting upload";
   try {
     const mime = blob.type.startsWith("video/mp4") ? "video/mp4" : "video/webm";
     if (lastSession)
@@ -173,11 +184,13 @@ async function upload() {
       duration,
     });
     lastSession = session.id;
+    stage = "Uploading thumbnail";
     await put(session.thumbnailUrl, thumbnail, () => {});
     let sent = 0,
       parts = [];
     if (session.multipart) {
       for (let n = 1; n <= session.parts; n++) {
+        stage = `Uploading video part ${n} of ${session.parts}`;
         const part = blob.slice(
             (n - 1) * session.partSize,
             n * session.partSize,
@@ -192,12 +205,15 @@ async function upload() {
         parts.push({ partNumber: n, etag });
         sent += part.size;
       }
-    } else
+    } else {
+      stage = "Uploading video";
       await put(
         session.uploadUrl,
         blob,
         (loaded) => (ui.progress.value = (100 * loaded) / blob.size),
       );
+    }
+    stage = "Finalizing recording";
     const result = await api(`/api/uploads/${session.id}/complete`, { parts });
     lastSession = null;
     draft = false;
@@ -222,7 +238,15 @@ async function upload() {
       ui.status.textContent = "Ready to share. Use Copy link below.";
     }
   } catch (e) {
-    ui.status.textContent = e.message;
+    const detail =
+      e instanceof Error && e.message
+        ? e.message
+        : "An unexpected error occurred.";
+    const message = `${stage}: ${detail} Your recording is still available to download. Keep this tab open to retry.`;
+    ui.status.textContent = message;
+    publishError.textContent = message;
+    publishError.hidden = false;
+    publishError.focus();
     publish.textContent = "Retry publish";
   } finally {
     busy = false;
