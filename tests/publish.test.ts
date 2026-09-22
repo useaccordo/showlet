@@ -209,3 +209,65 @@ it("requests microphone permission before offering the screen picker", async () 
   expect(get("#start").textContent).toBe("Choose screen & record");
   expect(get("#start").disabled).toBe(false);
 });
+
+it("normalizes S3 HTTP part ETags before Workers multipart completion", async () => {
+  let assembled = false;
+  const complete = vi.fn(async (parts) => {
+    expect(parts).toEqual([
+      { partNumber: 1, etag: "abc123" },
+      { partNumber: 2, etag: "def456" },
+    ]);
+    assembled = true;
+  });
+  const size = 20 * 1024 * 1024;
+  const env = {
+    ORIGIN: "https://example.com",
+    DB: {
+      prepare: (sql: string) => ({
+        bind: () => ({
+          first: async () =>
+            sql.includes("upload_sessions")
+              ? {
+                  id: "abcdefghijklmnopqrstuv",
+                  video_id: "zyxwvutsrqponmlkjihgfe",
+                  state: "finalizing",
+                  expires_at: "2099-01-01",
+                  r2_key: "video",
+                  thumb_key: "thumb",
+                  expected_size_bytes: size,
+                  passcode_hash: "hash",
+                  multipart_upload_id: "multipart-test",
+                }
+              : { id: "zyxwvutsrqponmlkjihgfe" },
+          run: async () => ({ meta: { changes: 1 } }),
+        }),
+      }),
+      batch: vi.fn().mockResolvedValue([]),
+    },
+    MEDIA: {
+      head: async (key: string) =>
+        key === "thumb" ? { size: 100 } : assembled ? { size } : null,
+      resumeMultipartUpload: () => ({ complete }),
+    },
+  } as unknown as Env;
+  const response = await uploads(
+    new Request(
+      "https://example.com/api/uploads/abcdefghijklmnopqrstuv/complete",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          parts: [
+            { partNumber: 1, etag: '\"abc123\"' },
+            { partNumber: 2, etag: "def456" },
+          ],
+        }),
+      },
+    ),
+    env,
+    "owner",
+    "/api/uploads/abcdefghijklmnopqrstuv/complete",
+  );
+  expect(response.status).toBe(200);
+  expect(complete).toHaveBeenCalledOnce();
+  expect(env.DB.batch).toHaveBeenCalledOnce();
+});

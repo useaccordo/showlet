@@ -169,6 +169,7 @@ export async function uploads(
         parts.length !== Math.ceil(s.expected_size_bytes / PART) ||
         parts.some(
           (p, i) =>
+            !p ||
             p.partNumber !== i + 1 ||
             typeof p.etag !== "string" ||
             p.etag.length > 200,
@@ -179,7 +180,13 @@ export async function uploads(
         await env.MEDIA.resumeMultipartUpload(
           s.r2_key,
           s.multipart_upload_id,
-        ).complete(parts);
+        ).complete(
+          parts.map(({ partNumber, etag }) => ({
+            partNumber,
+            // S3 PUT returns an HTTP ETag with quotes; Workers expects the raw value.
+            etag: etag.replace(/^"(.*)"$/, "$1"),
+          })),
+        );
     }
     const [file, thumb] = await Promise.all([
       env.MEDIA.head(s.r2_key),
